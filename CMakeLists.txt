@@ -6,6 +6,8 @@ ADD_DEFINITIONS(
 	-std=c++11
 	)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 find_package(JPEG REQUIRED)
 FIND_PACKAGE(Eigen3 REQUIRED)
 FIND_PACKAGE(Gflags REQUIRED)
@@ -24,16 +26,16 @@ SET(NVM_INCS
 	)
 
 SET(NVM_LIBS
-	nvmtools 
-	stlplus3_nvmtools 
+	nvmtools
+	stlplus3_nvmtools
 	${JPEG_LIBRARIES}
-	${GFLAGS_LIBRARIES} 
-	glog::glog
+	${GFLAGS_LIBRARIES}
+	${GLOG_LIBRARIES}
 	)
 
 INCLUDE_DIRECTORIES(${NVM_INCS})
 
-add_library(nvmtools STATIC 
+add_library(nvmtools STATIC
 	src/nvmtools/NVMFile.cpp
 	src/nvmtools/NVMFileVersion.cpp
 	src/nvmtools/CameraModel.cpp
@@ -41,10 +43,10 @@ add_library(nvmtools STATIC
 	src/nvmtools/PinholeModel.cpp
 	src/nvmtools/UndistortModel.cpp
 	)
-	
+
 # the binary
 ADD_EXECUTABLE(undistort_nvm src/undistort_nvm.cpp)
 TARGET_LINK_LIBRARIES(undistort_nvm ${NVM_LIBS} )
 
 SET(NVMTOOLS_INCLUDE_DIR ${NVM_INCS} PARENT_SCOPE)
-SET(NVMTOOLS_LIBRARIES ${NVM_LIBS} PARENT_SCOPE) 
+SET(NVMTOOLS_LIBRARIES ${NVM_LIBS} PARENT_SCOPE)
