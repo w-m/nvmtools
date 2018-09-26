@@ -38,6 +38,7 @@ DEFINE_bool(skip_images, false, "do not undistort images");
 int main(int argc, char *argv[]) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   FLAGS_colorlogtostderr = true;
+  FLAGS_alsologtostderr = 1;
   google::InitGoogleLogging(argv[0]);
 
   std::vector<nvmtools::NVM_Model> models;
